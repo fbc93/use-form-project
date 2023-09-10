@@ -4,16 +4,10 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import SwiperComponent from "./components/swiper";
 
 export default function Home() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>();
   const [qty, setQty] = useState(1);
   const price = 599;
   const total = price * qty;
-  const result = { price: 0, qty: 0, total: 0 };
-
-  const handleFormat = (total: number) => {
-    const totalRegex = /\B(?=(\d{3})+(?!\d))/g;
-    return total.toString().replace(totalRegex, ",");
-  }
 
   const onClickIncrease = () => {
     setQty(prevQty => prevQty + 1)
@@ -25,16 +19,22 @@ export default function Home() {
     }
   }
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
   const onClickBuyProduct = () => {
-    result.price = price;
+    const result = { qty: 0, total: 0 };
     result.qty = qty;
     result.total = total;
     console.log(result);
   }
+
+  const handleFormat = (total: number) => {
+    //천단위 콤마 format
+    const totalRegex = /\B(?=(\d{3})+(?!\d))/g;
+    return total.toString().replace(totalRegex, ",");
+  }
+
+  const onSubmit = (data: FieldValues) => {
+    console.log(data);
+  };
 
   return (
     <main>
