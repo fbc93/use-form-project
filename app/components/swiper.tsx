@@ -1,8 +1,8 @@
 'client use'
 import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react';
 import { Autoplay } from 'swiper';
+import { useEffect, useState } from 'react';
 import 'swiper/css';
-import { useEffect, useLayoutEffect, useState } from 'react';
 
 export default function SwiperComponent() {
   const [loading, setLoading] = useState<boolean>(false);
